@@ -56,7 +56,7 @@ bool MoveFile(const std::string& source_name, const std::string& destination_nam
 
 /** \brief same as move, but leaves the source file and there is no return value
  **/
-void CopyFile(const std::string& source, const std::string& destination);
+void CopyAFile(const std::string& source, const std::string& destination);
 
 /** \brief Removes all files in a directory.
 *** \param dir_name The name of the directory to clean (e.g. "/temp/screenshots")
@@ -89,7 +89,7 @@ std::vector<std::string> ListDirectory(const std::string& dir_name, const std::s
 *** \param filename The name of the file to be deleted
 *** \return true on success false on failure
 **/
-bool DeleteFile(const std::string& filename);
+bool DeleteAFile(const std::string& filename);
 
 } // namespace vt_utils
 

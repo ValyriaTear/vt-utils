@@ -87,7 +87,7 @@ bool MoveFile(const std::string &source_name, const std::string &destination_nam
     return (rename(source_name.c_str(), destination_name.c_str()) == 0);
 }
 
-void CopyFile(const std::string &source, const std::string &destination)
+void CopyAFile(const std::string &source, const std::string &destination)
 {
     if(DoesFileExist(destination))
         remove(destination.c_str());
@@ -130,18 +130,19 @@ bool CleanDirectory(const std::string &dir_name)
 #ifdef _WIN32
     //--- WINDOWS --------------------------------------------------------------
 
-    WIN32_FIND_DATAA info = { 0 };
+    WIN32_FIND_DATAA info;
     HANDLE handle = nullptr;
 
     std::string file_name = "*.*";
-    std::string first_file = dir_name + "/" + file_name;
+    const std::string first_file = dir_name + "/" + file_name;
 
     handle = FindFirstFileA(first_file.c_str(), &info);
     if (handle != INVALID_HANDLE_VALUE) {
         // Remove each file from the directory.
         do {
             file_name = info.cFileName;
-            DeleteFileA(dir_name + "/" + file_name);
+            const std::string file_path = dir_name + "/" + file_name;
+            DeleteFileA(file_path.c_str());
         } while (FindNextFileA(handle, &info));
     }
 
@@ -215,7 +216,7 @@ std::vector<std::string> ListDirectory(const std::string &dir_name, const std::s
 #if defined _WIN32
     //--- WINDOWS --------------------------------------------------------------
 
-    WIN32_FIND_DATAA info = { 0 };
+    WIN32_FIND_DATAA info;
     HANDLE handle = nullptr;
 
     std::string file_name = "*.*";
@@ -268,7 +269,7 @@ std::vector<std::string> ListDirectory(const std::string &dir_name, const std::s
     return directoryList;
 }
 
-bool DeleteFile(const std::string &filename)
+bool DeleteAFile(const std::string& filename)
 {
     if(DoesFileExist(filename)) {
         remove(filename.c_str());
