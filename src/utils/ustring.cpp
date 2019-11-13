@@ -171,7 +171,7 @@ static bool UTF8ToUTF16(const std::string& source, uint16_t *dest)
         return false;
     }
 
-#if (defined(_LIBICONV_VERSION) && _LIBICONV_VERSION == 0x0109) || defined(__FreeBSD__)
+#if defined(_LIBICONV_VERSION) && _LIBICONV_VERSION == 0x0109
     // We are using an iconv API that uses const char*
     const char *sourceChar = source.c_str();
 #else
